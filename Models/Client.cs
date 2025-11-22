@@ -18,7 +18,12 @@
             this.email = email;
             this.password = password;
         }
-        public Client() { } 
+        public Client() { }
+
+        public override string ToString()
+        {
+            return $"Identificador: {clientId} \n- DNI: {dni} \n- Cliente: {name} + {lastName} \n- Email: {email}";
+        }
 
     }
 }
