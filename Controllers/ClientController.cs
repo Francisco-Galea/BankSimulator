@@ -8,9 +8,10 @@ namespace BankSimulator.Controllers
     {
 
         private readonly IRepository<Client> clientRepository = new ClientRepository();
+        private readonly AccountController accountController = new AccountController();
         private readonly List<Client> clients;
 
-        public ClientController(List<Client> clients)
+        public ClientController()
         {
             this.clients = clientRepository.LoadAllData();
         }
@@ -29,17 +30,12 @@ namespace BankSimulator.Controllers
             client.email = Console.ReadLine();
             Console.WriteLine("Ingrese su contraseña: ");
             client.password = PasswordHasher.HashPassword(Console.ReadLine());
-            clientRepository.SaveData(client);
-            GetClients();
+            accountController.CreateAccount(client);
         }
 
-        public void GetClients()
+        public void Login()
         {
-            //return clientRepository.LoadAllData();
-            foreach (var item in clients)
-            {
-                Console.WriteLine(item.ToString());
-            }
+
         }
 
     }
