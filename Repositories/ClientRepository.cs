@@ -8,9 +8,9 @@ namespace BankSimulator.Repositories
         public List<Client> LoadAllData()
         {
             List<Client> clients = new List<Client>();
-            if (File.Exists("account.json"))
+            if (File.Exists("client.json"))
             {
-                string json = File.ReadAllText("account.json");
+                string json = File.ReadAllText("client.json");
                 if (!string.IsNullOrWhiteSpace(json))
                     clients = JsonSerializer.Deserialize<List<Client>>(json);
             }
@@ -43,7 +43,7 @@ namespace BankSimulator.Repositories
             List<Client> clients = LoadAllData();
             clients.Add(client);
             string jsonSerialize = JsonSerializer.Serialize(clients);
-            File.WriteAllText("account.json", jsonSerialize);
+            File.WriteAllText("client.json", jsonSerialize);
         }
     }
 }
