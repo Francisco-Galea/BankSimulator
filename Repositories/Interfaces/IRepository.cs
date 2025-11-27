@@ -1,4 +1,4 @@
-﻿namespace BankSimulator.Repositories
+﻿namespace BankSimulator.Repositories.Interfaces
 {
     internal interface IRepository<T>
     {

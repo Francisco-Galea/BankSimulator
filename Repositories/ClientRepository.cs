@@ -1,9 +1,11 @@
 ﻿using System.Text.Json;
+using BankSimulator.ExceptionHandler.ClientExceptions;
 using BankSimulator.Models;
+using BankSimulator.Repositories.Interfaces;
 
 namespace BankSimulator.Repositories
 {
-    internal class ClientRepository : IRepository<Client>
+    internal class ClientRepository : IClientRepository
     {
         public List<Client> LoadAllData()
         {
@@ -17,24 +19,27 @@ namespace BankSimulator.Repositories
             return clients;
         }
 
-        public Client LoadClientById(int clientId)
+        public Client GetClientById(int clientId)
         {
-            List<Client> clients = LoadAllData();
-            Client client  = clients.Where(c => c.clientId == clientId).First();
-            return client;
+            try
+            {
+                return LoadAllData().First(c => c.clientId == clientId);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new InvalidOperationException("No existen clientes registrados");
+            }
         }
 
-        public void ExistDni(int dni)
+        public Client GetClientByDNI(int dni)
         {
-            List<Client> clients = LoadAllData();
-            Client client = clients.Where(c => c.dni == dni).First();
-            if (client == null)
+            try
             {
-                Console.WriteLine("El dni ya existe");
+                return LoadAllData().First(c => c.dni == dni);
             }
-            else
+            catch (InvalidOperationException)
             {
-                Console.WriteLine("El dni no existe");
+                throw new ClientNotFoundException();
             }
         }
 

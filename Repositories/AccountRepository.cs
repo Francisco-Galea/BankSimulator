@@ -1,9 +1,10 @@
 ﻿using System.Text.Json;
 using BankSimulator.Models;
+using BankSimulator.Repositories.Interfaces;
 
 namespace BankSimulator.Repositories
 {
-    internal class AccountRepository : IRepository<Account>
+    internal class AccountRepository : IAccountRepository
     {
         public List<Account> LoadAllData()
         {
