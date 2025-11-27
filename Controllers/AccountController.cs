@@ -3,7 +3,7 @@ using BankSimulator.UnitOfWorks;
 
 namespace BankSimulator.Controllers
 {
-    internal class AccountController
+    internal sealed class AccountController
     {
 
         private readonly UnitOfWork unitOfWork = new();

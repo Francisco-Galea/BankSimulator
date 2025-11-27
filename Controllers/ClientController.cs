@@ -1,13 +1,15 @@
-﻿using BankSimulator.Models;
+﻿using BankSimulator.DTOs.Request;
+using BankSimulator.Models;
 using BankSimulator.Repositories;
+using BankSimulator.Repositories.Interfaces;
 using BankSimulator.Utils;
 
 namespace BankSimulator.Controllers
 {
-    internal class ClientController
+    internal sealed class ClientController
     {
 
-        private readonly IRepository<Client> clientRepository = new ClientRepository();
+        private readonly IClientRepository clientRepository = new ClientRepository();
         private readonly AccountController accountController = new AccountController();
         private readonly List<Client> clients;
 
@@ -28,14 +30,21 @@ namespace BankSimulator.Controllers
             client.lastName = Console.ReadLine();
             Console.WriteLine("Ingrese su email: ");
             client.email = Console.ReadLine();
-            Console.WriteLine("Ingrese su contraseña: ");
+            Console.WriteLine("Ingrese una contraseña: ");
             client.password = PasswordHasher.HashPassword(Console.ReadLine());
             accountController.CreateAccount(client);
         }
 
         public void Login()
         {
-
+            UserLoginRequest userLogin = new();
+            Console.WriteLine("Ingrese su dni: ");
+            userLogin.dni = int.Parse(Console.ReadLine());
+            Client clientFounded = clientRepository.GetClientByDNI(userLogin.dni);
+            Console.WriteLine("Ingrese su contraseña: ");
+            userLogin.password = Console.ReadLine();
+            bool passwordValid = PasswordHasher.ValidPassword(userLogin.password, clientFounded.password);
+            Console.WriteLine(passwordValid);
         }
 
     }

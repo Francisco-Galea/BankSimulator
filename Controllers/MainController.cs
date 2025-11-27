@@ -1,6 +1,6 @@
 ﻿namespace BankSimulator.Controllers
 {
-    internal class MainController
+    internal sealed class MainController
     {
 
         private readonly ClientController clientController = new ClientController();
@@ -27,7 +27,6 @@
                 case 1:
                     clientController.CreateClient();
                     break;
-
                 case 2:
                     clientController.Login();
                     break;
