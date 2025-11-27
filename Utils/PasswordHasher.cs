@@ -1,7 +1,7 @@
 ﻿
 namespace BankSimulator.Utils
 {
-    internal static class PasswordHasher
+    internal sealed class PasswordHasher
     {
         public static string HashPassword(string password)
         {
@@ -11,7 +11,7 @@ namespace BankSimulator.Utils
 
         public static bool ValidPassword(string password, string hashedPassword)
         {
-            bool isValid = BCrypt.Net.BCrypt.EnhancedVerify(password, hashedPassword);
+            bool isValid = BCrypt.Net.BCrypt.Verify(password, hashedPassword);
             return isValid;
         }
 
