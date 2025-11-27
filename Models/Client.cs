@@ -9,15 +9,6 @@
         public string email {  get; set; } = string.Empty;
         public string password { get; set; } = string.Empty;
 
-        public Client(int clientId, int dni, string name, string lastName, string email, string password)
-        {
-            this.clientId = clientId;
-            this.dni = dni;
-            this.name = name;
-            this.lastName = lastName;
-            this.email = email;
-            this.password = password;
-        }
         public Client() { }
 
         public override string ToString()
