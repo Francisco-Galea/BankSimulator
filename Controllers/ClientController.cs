@@ -12,6 +12,7 @@ namespace BankSimulator.Controllers
         private readonly IClientRepository clientRepository = new ClientRepository();
         private readonly AccountController accountController = new AccountController();
         private readonly List<Client> clients;
+        private Client client = new();
 
         public ClientController()
         {
@@ -43,8 +44,22 @@ namespace BankSimulator.Controllers
             Client clientFounded = clientRepository.GetClientByDNI(userLogin.dni);
             Console.WriteLine("Ingrese su contraseña: ");
             userLogin.password = Console.ReadLine();
-            bool passwordValid = PasswordHasher.ValidPassword(userLogin.password, clientFounded.password);
-            Console.WriteLine(passwordValid);
+            PasswordHasher.ValidPassword(userLogin.password, clientFounded.password);
+            this.client = clientFounded;
+            ClientLogedMenu();
+        }
+
+        public void ClientLogedMenu()
+        {
+            Console.Clear();
+            int optionSelected = 0;
+            do
+            {
+                Console.WriteLine($"Bienvenido {client.name} {client.lastName}");
+                Console.WriteLine("¿Que operacion desea realizar?\n1- Retirar dinero\n2- Transferir\n3- Ingresar dinero\n4- Cerrar sesion\n5- Salir de la aplicacion");
+                optionSelected = int.Parse(Console.ReadLine());
+            }
+            while (true);
         }
 
     }
