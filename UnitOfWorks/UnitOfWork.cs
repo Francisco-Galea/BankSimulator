@@ -4,12 +4,12 @@ using BankSimulator.Repositories.Interfaces;
 
 namespace BankSimulator.UnitOfWorks
 {
-    internal sealed class UnitOfWork
+    internal static class UnitOfWork
     {
         private static readonly IClientRepository clientRepository = new ClientRepository();
         private static readonly IAccountRepository accountRepository = new AccountRepository();
 
-        public void SaveAccountAndClient(Account account, Client client)
+        public static void SaveAccountAndClient(Account account, Client client)
         {
             accountRepository.SaveData(account);
             clientRepository.SaveData(client);
