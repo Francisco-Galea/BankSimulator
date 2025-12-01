@@ -1,7 +1,7 @@
 ﻿
 namespace BankSimulator.Utils
 {
-    internal sealed class PasswordHasher
+    internal static class PasswordHasher
     {
         public static string HashPassword(string password)
         {
