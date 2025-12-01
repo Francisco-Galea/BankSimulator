@@ -6,24 +6,21 @@ namespace BankSimulator.Controllers
     internal sealed class AccountController
     {
 
-        private readonly UnitOfWork unitOfWork = new();
-
-
         public void CreateAccount(Client client)
         {
             Account account = new Account();
-            account.accountId = client.clientId;
-            account.clientId = client.clientId;
-            account.accountCreation = DateOnly.FromDateTime(DateTime.Now);
-            account.balance = 0;
+            account.ACCOUNTID = client.clientId;
+            account.CLIENTID = client.clientId;
+            account.BALANCE = 0;
+            account.ACCOUNTCREATION = DateOnly.FromDateTime(DateTime.Now);
             Console.WriteLine("Que tipo de cuenta desea crear? " +
                 "\n1- Corriente " +
                 "\n2- Ahorro " +
                 "\n3- Ambos " +
                 "\n4- Cancelar operacion");
             int accountOption = int.Parse(Console.ReadLine());
-            account.accountType = SelectAccountType(accountOption);
-            unitOfWork.SaveAccountAndClient(account, client);
+            account.ACCOUNTTYPE = SelectAccountType(accountOption);
+            UnitOfWork.SaveAccountAndClient(account, client);
         }
 
         public List<AccountType> SelectAccountType(int accountOption)

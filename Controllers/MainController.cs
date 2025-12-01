@@ -1,4 +1,6 @@
-﻿namespace BankSimulator.Controllers
+﻿using BankSimulator.Models;
+
+namespace BankSimulator.Controllers
 {
     internal sealed class MainController
     {
@@ -12,20 +14,22 @@
             do
             {
                 Console.WriteLine("Ingrese el número indicado para empezar a operar: ");
-                Console.WriteLine("1- Registrarse \n2- Iniciar sesion \n3- Cerrar programa");
+                Console.WriteLine("1- Registrarse " +
+                                  "\n2- Iniciar sesion " +
+                                  "\n3- Cerrar programa");
                 option = int.Parse(Console.ReadLine());
                 Console.Clear();
-                InitialMenu(option);
+                MainMenuOptions(option);
             }
             while (option != 3);
         }
 
-        public void InitialMenu(int option)
+        public void MainMenuOptions(int option)
         {
             switch(option)
             {
                 case 1:
-                    clientController.CreateClient();
+                    clientController.Register();
                     break;
                 case 2:
                     clientController.Login();

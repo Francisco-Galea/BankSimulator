@@ -11,15 +11,16 @@ namespace BankSimulator.Controllers
 
         private readonly IClientRepository clientRepository = new ClientRepository();
         private readonly AccountController accountController = new AccountController();
+        private readonly TransactionController transactionController = new TransactionController();
         private readonly List<Client> clients;
-        private Client client = new();
+        private Client clientLoged = new();
 
         public ClientController()
         {
             this.clients = clientRepository.LoadAllData();
         }
 
-        public void CreateClient()
+        public void Register()
         {
             Client client = new();
             client.clientId = clients.Count + 1;
@@ -45,7 +46,7 @@ namespace BankSimulator.Controllers
             Console.WriteLine("Ingrese su contraseña: ");
             userLogin.password = Console.ReadLine();
             PasswordHasher.ValidPassword(userLogin.password, clientFounded.password);
-            this.client = clientFounded;
+            this.clientLoged = clientFounded;
             ClientLogedMenu();
         }
 
@@ -55,11 +56,47 @@ namespace BankSimulator.Controllers
             int optionSelected = 0;
             do
             {
-                Console.WriteLine($"Bienvenido {client.name} {client.lastName}");
-                Console.WriteLine("¿Que operacion desea realizar?\n1- Retirar dinero\n2- Transferir\n3- Ingresar dinero\n4- Cerrar sesion\n5- Salir de la aplicacion");
+                Console.WriteLine($"Bienvenido {clientLoged.name} {clientLoged.lastName}");
+                Console.WriteLine("¿Que operacion desea realizar?" +
+                    "\n1- Retirar dinero" +
+                    "\n2- Transferir" +
+                    "\n3- Ingresar dinero" +
+                    "\n4- Cerrar sesion" +
+                    "\n5- Salir de la aplicacion");
                 optionSelected = int.Parse(Console.ReadLine());
+                ClientLogedMenuOptions(optionSelected);
             }
             while (true);
+        }
+
+        public void ClientLogedMenuOptions(int optionSelected)
+        {
+            switch (optionSelected)
+            {
+                case 1:
+                    transactionController.WithDraw(clientLoged);
+                    break;
+
+                case 2:
+                    transactionController.Transfer(clientLoged);
+                    break;
+
+                case 3:
+                    transactionController.Deposit(clientLoged);
+                    break;
+
+                case 4:
+                    //Un singletoon para gestionar sesiones?
+                    break;
+
+                case 5:
+                    //cerrar aplicacion
+                    break;
+
+                default:
+                    Console.WriteLine("Opcion ingresada no valida, ingrese una nuevamente");
+                    break;
+            }
         }
 
     }
