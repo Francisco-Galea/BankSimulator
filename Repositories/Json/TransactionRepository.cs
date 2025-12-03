@@ -1,16 +1,17 @@
-﻿using BankSimulator.Repositories.Interfaces;
-using System.Transactions;
+﻿using BankSimulator.Models;
+using BankSimulator.Repositories.Interfaces;
+
 
 namespace BankSimulator.Repositories
 {
-    internal class TransactionRepository : IRepository<Transaction>
+    internal class TransactionRepository : ITransactionRepository
     {
         public List<Transaction> LoadAllData()
         {
             throw new NotImplementedException();
         }
 
-        public void SaveData(Transaction genericClass)
+        public void SaveData(Transaction transaction)
         {
             throw new NotImplementedException();
         }
